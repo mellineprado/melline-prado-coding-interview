@@ -29,6 +29,20 @@ RSpec.describe 'Users', type: :request do
       end
     end
 
+    context 'when partially fetching usernames' do
+      let!(:user_1) { create(:user, username: 'max')}
+      let!(:user_2) { create(:user, username: 'mathew')}
+      let!(:user_3) { create(:user, username: 'melline')}
+
+      it 'returns only users that contains "ma"' do
+        get users_path(username: 'ma')
+
+        expect(result.size).to eq(2)
+        expect(result.pluck("username")).to eq([user_1.username, user_2.username])
+      end
+
+    end
+
     context 'when fetching all users' do
       include_context 'with multiple companies'
 
