@@ -47,6 +47,9 @@ RSpec.describe 'Users', type: :request do
       include_context 'with multiple companies'
 
       it 'returns all the users' do
+        get users_path()
+
+        expect(result.size).to eq(User.count)
       end
     end
   end
